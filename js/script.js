@@ -63,12 +63,29 @@ const renderizar_libros = (lista = libros) => {
             <td>${libro.genero}</td>
             <td>${libro.autor}</td>
             <td>${libro.anio}</td>
+            <td>
+                <button onclick="editar_libro(${index_real})">Editar</button>
+                <button onclick="eliminar_libro(${index_real})">Eliminar</button>
+            </td>
         `
 
         tabla.appendChild(fila)
 
     });
 }
+
+const editar_libro = (index) => {
+    const libro = libros[index]
+    document.getElementById('titulo').value = libro.titulo
+    document.getElementById('autor').value = libro.autor
+    document.getElementById('anio').value = libro.anio
+    document.getElementById('genero').value = libro.genero
+    document.querySelector('button[type="submit"]').innerText = 'Actualizar Libro'
+    editando = true
+    indice_editar = index
+}
+
+
 
 // Acciones realizadas al cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {
