@@ -1,39 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Gestor de libros</title>
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 
 <body>
 
-    <h2> - Gestor de libros - </h2>
-    <form onsubmit="agregar_libro(); return false">
-        <input type="text" id="titulo" placeholder="Titulo del libro" required>
-        <input type="text" id="autor" placeholder="Autor del libro" required>
-        <input type="number" id="anio" placeholder="Año de publicacion" required min="1990" max="2025">
-        <label for="genero"></label>
-            <select id="genero" required>
-                <option value="" selected disabled hidden>Género</option>
-                <option value="ficcion">Ficción</option>
-                <option value="fantasia">Fantasía</option>
-                <option value="ciencia_ficcion">Ciencia Ficción</option>
-                <option value="historia">Historia</option>
-                <option value="biografia">Biografía</option>
-                <option value="thriller">Thriller</option>
-                <option value="romance">Romance</option>
-                <option value="misterio">Misterio</option>
-                <option value="infantil">Infantil</option>
-                <option value="otro">Otro</option>
-            </select>
-        <button id="button_form" type="submit">Agregar libro</button>
+    <header>
+        <h2> - Gestor de libros - </h2>
+    </header>
 
-   
-    </form>
+    <main>
 
+        <!-- CARGA DE LIBROS -->
+        <section class="carga_libros">
+            <form onsubmit="agregar_libro(); return false">
+                <input type="text" id="titulo" placeholder="Titulo del libro" required>
+                <input type="text" id="autor" placeholder="Autor del libro" required>
+                <input type="number" id="anio" placeholder="Año de publicacion" required min="1900" max="2025">
+                <label for="genero"></label>
+                    <select id="genero" required>
+                        <option value="" selected disabled hidden>Género</option>
+                        <option value="ficcion">Ficción</option>
+                        <option value="fantasia">Fantasía</option>
+                        <option value="ciencia_ficcion">Ciencia Ficción</option>
+                        <option value="historia">Historia</option>
+                        <option value="biografia">Biografía</option>
+                        <option value="thriller">Thriller</option>
+                        <option value="romance">Romance</option>
+                        <option value="misterio">Misterio</option>
+                        <option value="infantil">Infantil</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                <button id="button_form" type="submit">Agregar libro</button>
+            </form>
+        </section>
+
+        <!-- LISTA RENDERIZABLE DE LIBROS -->
+        <section class="lista_libros">
+            <h2>Lista de libros</h2>
+            <div class="filtros_lista">
+
+            </div>
+            <div class="lista">
+                <table border="1" id="tabla_libros">
+                    <thead>
+                        <th>#</th>
+                        <th>Título</th>
+                        <th>Género</th>
+                        <th>Autor</th>
+                        <th>Año</th>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- RESUMEN DE DATOS -->
+        <section class="resumen_datos">
+
+        </section>
+    </main>
+    <footer>
+        <p>Grupo: Benavidez, Tomás; Blengino, Giuliano</p>
+    </footer>
     <script src="./js/script.js"></script>
 </body>
 

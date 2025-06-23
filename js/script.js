@@ -3,6 +3,7 @@ let libros = JSON.parse(localStorage.getItem('libros')) || []
 let editando = false;
 let indice_editar = null;
 
+// Funcion para carga de libros
 const agregar_libro = () => {
 
     const titulo = document.getElementById('titulo').value.trim()
@@ -37,6 +38,39 @@ const agregar_libro = () => {
         document.getElementById('anio').value = ''
         document.getElementById('genero').value = ''
 
+        renderizar_libros()
     }
     
 }
+
+
+// Funcion para renderizar listas de libros
+const renderizar_libros = (lista = libros) => {
+
+    const tabla = document.getElementById("tabla_libros").querySelector('tbody')
+
+    tabla.innerText = ''
+
+    lista.forEach(libro => {
+        
+        const index_real = libros.indexOf(libro) // Obtiene el indice real del array original
+
+        const fila = document.createElement('tr')
+
+        fila.innerHTML = `
+            <td>${index_real}</td>
+            <td>${libro.titulo}</td>
+            <td>${libro.genero}</td>
+            <td>${libro.autor}</td>
+            <td>${libro.anio}</td>
+        `
+
+        tabla.appendChild(fila)
+
+    });
+}
+
+// Acciones realizadas al cargar el DOM
+document.addEventListener('DOMContentLoaded', () => {
+    renderizar_libros()
+})
