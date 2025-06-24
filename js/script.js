@@ -15,6 +15,7 @@ const agregar_libro = () => {
 
         if (libro_existe(libros, titulo, autor)) {
             alert('El libro que desea agregar ya se encuentra cargado')
+            editando = False
         } else {
             if (editando){
                 libros[indice_editar] = {titulo, autor, anio, genero}
@@ -38,6 +39,7 @@ const agregar_libro = () => {
     
 }
 
+//funcion para verificar si existe el libro o si ya esta cargado
 const libro_existe = (lista = libros, titulo, autor) => { 
     existe = libros.some(libro => 
         libro.titulo.toLowerCase() === titulo.toLowerCase() &&
@@ -77,6 +79,7 @@ const renderizar_libros = (lista = libros) => {
     });
 }
 
+//funcion para editar libros
 const editar_libro = (index) => {
     const libro = libros[index]
     document.getElementById('titulo').value = libro.titulo
@@ -88,6 +91,17 @@ const editar_libro = (index) => {
     indice_editar = index
 }
 
+//funcion apra eliminar libros
+const eliminar_libro = (index) => {
+
+    libros.splice(index, 1)
+
+    localStorage.setItem('libros', JSON.stringify(libros))
+
+    renderizar_libros()    
+
+
+}
 
 
 // Acciones realizadas al cargar el DOM
