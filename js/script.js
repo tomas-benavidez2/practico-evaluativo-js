@@ -13,23 +13,18 @@ const agregar_libro = () => {
 
     if (titulo !== '' && autor !== '' && anio !== '' && genero !== '') {
 
-        if (editando){
-            libros[indice_editar] = {titulo, autor, anio, genero}
-            editando = false
-            indice_editar = null
-            document.querySelector('button[type="submit"]').innerText = 'Agregar Libro'
-        }else{
-            const ya_existe = libros.some(libro =>
-                libro.titulo.toLowerCase() === titulo.toLowerCase() &&
-                libro.autor.toLowerCase() === autor.toLowerCase()
-            )
-            if(ya_existe) {
-                alert('Este libro ya se encuentra cargado')
-                return
-            }
-            libros.push({ titulo, autor, anio, genero })
-        }  
-
+        if (libro_existe(libros, titulo, autor)) {
+            alert('El libro que desea agregar ya se encuentra cargado')
+        } else {
+            if (editando){
+                libros[indice_editar] = {titulo, autor, anio, genero}
+                editando = false
+                indice_editar = null
+                document.querySelector('button[type="submit"]').innerText = 'Agregar Libro'
+            }else{
+                libros.push({ titulo, autor, anio, genero })
+            }  
+        }
         localStorage.setItem('libros', JSON.stringify(libros))
 
 
@@ -43,6 +38,14 @@ const agregar_libro = () => {
     
 }
 
+const libro_existe = (lista = libros, titulo, autor) => { 
+    existe = libros.some(libro => 
+        libro.titulo.toLowerCase() === titulo.toLowerCase() &&
+        libro.autor.toLowerCase() === autor.toLowerCase()
+        )
+    console.log(existe)
+    return existe
+    }
 
 // Funcion para renderizar listas de libros
 const renderizar_libros = (lista = libros) => {
