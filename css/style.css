@@ -48,7 +48,7 @@ main {
     gap: 40px;
 }
 
-.carga_libros input, select {
+input, select {
     padding: 10px;
     margin-right: 10px;
     border-radius: 5px;
@@ -74,6 +74,56 @@ section {
     gap: 50px;
     justify-content: space-around;
     align-items: flex-start;
+}
+
+.lista_libros {
+    display: flex;
+    flex-direction: column;
+}
+
+.filtros_lista { 
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+}
+
+.filtros_lista div {
+    display: inherit;
+    gap: 10px;
+    
+}
+
+.lista {
+    margin-top: 5%;
+}
+
+th, tr, td {
+    padding: 00px 10px 0px 10px;
+}
+
+td button {
+    margin: 3px;
+}
+
+.boton_editar {
+    background-color: #26C6DA;
+}
+
+.boton_editar:hover {
+    background-color: #00ACC1;
+    transition: 0.5s;
+}
+
+.boton_eliminar {
+    background-color: #E53935;
+}
+
+.boton_eliminar:hover {
+    background-color: #C62828;
+    transition: 0.5s;
 }
 
 footer {

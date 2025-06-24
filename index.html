@@ -46,24 +46,20 @@
         <!-- LISTA RENDERIZABLE DE LIBROS -->
         <section class="lista_libros">
             <h2>Lista de libros</h2>
-            <div class="filtros_lista">
-                <input type="text" id="busqueda" placeholder="Buscar titulo..." oninput="filtrar_libro()">
-
-                <select id="filtro_genero" onchange="filtrar_por_genero()">
-                        <option value="todos" selected>todas</option>
-                        <option value="ficcion">Ficción</option>
-                        <option value="fantasia">Fantasía</option>
-                        <option value="ciencia_ficcion">Ciencia Ficción</option>
-                        <option value="historia">Historia</option>
-                        <option value="biografia">Biografía</option>
-                        <option value="thriller">Thriller</option>
-                        <option value="romance">Romance</option>
-                        <option value="misterio">Misterio</option>
-                        <option value="infantil">Infantil</option>
-                        <option value="otro">Otro</option>
-                </select>
-            </div>
-            <div class="lista">
+            <article class="filtros_lista">
+                <h4>Filtros:</h4>
+                <div>
+                    <p>Título:</p>
+                    <input type="text" id="busqueda" placeholder="Buscar titulo..." oninput="filtrar_libro()">
+                </div>
+                <div>
+                    <p>Género:</p>
+                    <select id="filtro_genero" onchange="filtrar_libro()">
+                            <option value="todos" selected>Todos</option>
+                    </select>
+                </div>
+            </article>
+            <article class="lista">
                 <table border="1" id="tabla_libros">
                     <thead>
                         <th>#</th>
@@ -71,12 +67,13 @@
                         <th>Género</th>
                         <th>Autor</th>
                         <th>Año</th>
+                        <th>Acciones</th>
                     </thead>
                     <tbody>
 
                     </tbody>
                 </table>
-            </div>
+            </article>
         </section>
 
         <!-- RESUMEN DE DATOS -->

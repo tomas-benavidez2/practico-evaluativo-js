@@ -35,6 +35,7 @@ const agregar_libro = () => {
         document.getElementById('genero').value = ''
 
         renderizar_libros()
+        actualizarSelectGeneros()
     }
     
 }
@@ -65,12 +66,12 @@ const renderizar_libros = (lista = libros) => {
         fila.innerHTML = `
             <td>${index_real}</td>
             <td>${libro.titulo}</td>
-            <td>${libro.genero}</td>
+            <td>${normalizarPalabra(libro.genero)}</td>
             <td>${libro.autor}</td>
             <td>${libro.anio}</td>
             <td>
-                <button onclick="editar_libro(${index_real})">Editar</button>
-                <button onclick="eliminar_libro(${index_real})">Eliminar</button>
+                <button onclick="editar_libro(${index_real})" class="boton_editar">Editar</button>
+                <button onclick="eliminar_libro(${index_real})" class="boton_eliminar">Eliminar</button>
             </td>
         `
 
@@ -102,32 +103,60 @@ const eliminar_libro = (index) => {
 
 
 }
-//buscar libros por titulo
+
+// Filtro de libros por titulo y genero
 const filtrar_libro = () =>{
-    const texto = document.getElementById('busqueda').value.toLowerCase()
-
-    const libro_filtrado = libros.filter(libro => libro.titulo.toLowerCase().includes(texto))
-    
-    renderizar_libros(libro_filtrado)
-
-
-}
-
-//filtrar por genero
-const filtrar_por_genero = () =>{
+    const titulo = document.getElementById('busqueda').value.toLowerCase()
     const genero = document.getElementById('filtro_genero').value
 
-    if (genero === 'todos'){
+    if (titulo === '' && genero === 'todos'){
         renderizar_libros()
-    } else {
+    } else if (titulo != '' && genero === 'todos') {
+        const libro_filtrado = libros.filter(libro => libro.titulo.toLowerCase().includes(titulo))
+        renderizar_libros(libro_filtrado)
+    } else if (titulo === '' && genero != 'todos') {
         const libro_filtrado = libros.filter(libro => libro.genero === genero)
         renderizar_libros(libro_filtrado)
-
+    } else if (titulo != '' && genero != 'todos') {
+        const libro_filtrado_genero = libros.filter(libro => libro.genero === genero)
+        const libro_filtrado = libro_filtrado_genero.filter(libro => libro.titulo.toLowerCase().includes(titulo))
+        renderizar_libros(libro_filtrado)
     }
 }
 
+const actualizarSelectGeneros = () => {
+    const select = document.getElementById('filtro_genero')
+    const generosUnicos = [...new Set(libros.map(libro => libro.genero))]
+
+    select.innerHTML = `<option value="todos">Todos</option>`
+    generosUnicos.forEach(genero => {
+        const option = document.createElement("option")
+        option.value = genero
+        option.text = normalizarPalabra(genero)
+        select.appendChild(option)
+    })
+}
+
+// Funcion para mostrar bien el texto de los generos en el front (ej. 'ciencia_ficcion' >>> 'Ciencia Ficcion')
+const normalizarPalabra = (palabra) => {
+    return palabra
+        .replace(/_/g, ' ')             // Reemplaza guiones bajos por espacios (/g permite que actue sobre todos los "_" que encuentre)
+        .split(' ')                     // Divide en palabras
+        .map(palabra => palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase()) // Capitaliza cada palabra
+        .join(' ');                     // Une la palabra con espacios
+}
+
+// Funcion para formatear el input del usuario si carga un nuevo genero (si lo implementamos)
+// ej. Terror Psicologico >>> terror_psicologico
+const formatearPalabra = (palabra) => {
+    return palabra
+        .trim()
+        .replace(/_/g, ' ')
+        .toLowerCase
+}
 
 // Acciones realizadas al cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {
     renderizar_libros()
+    actualizarSelectGeneros()
 })
