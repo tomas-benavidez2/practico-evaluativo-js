@@ -113,6 +113,19 @@ const filtrar_libro = () =>{
 
 }
 
+//filtrar por genero
+const filtrar_por_genero = () =>{
+    const genero = document.getElementById('filtro_genero').value
+
+    if (genero === 'todos'){
+        renderizar_libros()
+    } else {
+        const libro_filtrado = libros.filter(libro => libro.genero === genero)
+        renderizar_libros(libro_filtrado)
+
+    }
+}
+
 
 // Acciones realizadas al cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {
