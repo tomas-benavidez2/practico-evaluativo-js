@@ -91,7 +91,7 @@ const editar_libro = (index) => {
     indice_editar = index
 }
 
-//funcion apra eliminar libros
+//funcion para eliminar libros
 const eliminar_libro = (index) => {
 
     libros.splice(index, 1)
@@ -99,6 +99,16 @@ const eliminar_libro = (index) => {
     localStorage.setItem('libros', JSON.stringify(libros))
 
     renderizar_libros()    
+
+
+}
+//buscar libros por titulo
+const filtrar_libro = () =>{
+    const texto = document.getElementById('busqueda').value.toLowerCase()
+
+    const libro_filtrado = libros.filter(libro => libro.titulo.toLowerCase().includes(texto))
+    
+    renderizar_libros(libro_filtrado)
 
 
 }
