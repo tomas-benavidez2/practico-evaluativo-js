@@ -58,6 +58,10 @@
                             <option value="todos" selected>Todos</option>
                     </select>
                 </div>
+                <div>
+                    <p>Leidos:</p>
+                    <input type="checkbox" id="leidos" placeholder="Buscar leidos..." oninput="filtrar_leidos()">
+                </div>
             </article>
             <article class="lista">
                 <table border="1" id="tabla_libros">
@@ -68,6 +72,7 @@
                         <th>Autor</th>
                         <th>Año</th>
                         <th>Acciones</th>
+                        <th>leidos</th>
                     </thead>
                     <tbody>
 

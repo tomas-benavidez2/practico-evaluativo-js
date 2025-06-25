@@ -15,7 +15,7 @@ const agregar_libro = () => {
 
         if (libro_existe(libros, titulo, autor)) {
             alert('El libro que desea agregar ya se encuentra cargado')
-            editando = False
+            editando = false
         } else {
             if (editando){
                 libros[indice_editar] = {titulo, autor, anio, genero}
@@ -23,7 +23,7 @@ const agregar_libro = () => {
                 indice_editar = null
                 document.querySelector('button[type="submit"]').innerText = 'Agregar Libro'
             }else{
-                libros.push({ titulo, autor, anio, genero })
+                libros.push({ titulo, autor, anio, genero, leido: false})
             }  
         }
         localStorage.setItem('libros', JSON.stringify(libros))
@@ -72,6 +72,9 @@ const renderizar_libros = (lista = libros) => {
             <td>
                 <button onclick="editar_libro(${index_real})" class="boton_editar">Editar</button>
                 <button onclick="eliminar_libro(${index_real})" class="boton_eliminar">Eliminar</button>
+            </td>
+            <td>
+                <input type="checkbox" id="leido_${index_real}" ${libro.leido ? 'checked' : ''} onchange="cambio_leido(${index_real})">
             </td>
         `
 
@@ -135,6 +138,34 @@ const actualizarSelectGeneros = () => {
         option.text = normalizarPalabra(genero)
         select.appendChild(option)
     })
+}
+
+
+const cambio_leido = (index) => {
+    
+    libros[index].leido = !libros[index].leido
+
+
+    localStorage.setItem('libros', JSON.stringify(libros))
+
+    }
+
+const filtrar_leidos = () =>{
+    const checkboxLeidos = document.getElementById('leidos')
+    const estaMarcado = checkboxLeidos.checked
+
+     let lista_leidos = []
+
+      if (estaMarcado) {
+        
+            lista_leidos = libros.filter(libro => libro.leido === true)
+        } else {
+        
+            lista_leidos = libros
+    }
+
+    renderizar_libros(lista_leidos)
+
 }
 
 // Funcion para mostrar bien el texto de los generos en el front (ej. 'ciencia_ficcion' >>> 'Ciencia Ficcion')
