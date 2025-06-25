@@ -16,6 +16,7 @@ const agregar_libro = () => {
         if (libro_existe(libros, titulo, autor)) {
             alert('El libro que desea agregar ya se encuentra cargado')
             editando = false
+            document.querySelector('button[type="submit"]').innerText = 'Agregar Libro'
         } else {
             if (editando){
                 libros[indice_editar] = {titulo, autor, anio, genero}
@@ -140,7 +141,7 @@ const actualizarSelectGeneros = () => {
     })
 }
 
-
+//cambia en el local a leido o no leido
 const cambio_leido = (index) => {
     
     libros[index].leido = !libros[index].leido
@@ -150,6 +151,7 @@ const cambio_leido = (index) => {
 
     }
 
+//funcion para filtrar leidos
 const filtrar_leidos = () =>{
     const checkboxLeidos = document.getElementById('leidos')
     const estaMarcado = checkboxLeidos.checked
