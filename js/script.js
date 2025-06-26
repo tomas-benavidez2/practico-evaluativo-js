@@ -15,7 +15,8 @@ const agregar_libro = () => {
 
         if (libro_existe(libros, titulo, autor)) {
             alert('El libro que desea agregar ya se encuentra cargado')
-            editando = False
+            editando = false
+            document.querySelector('button[type="submit"]').innerText = 'Agregar Libro'
         } else {
             if (editando){
                 libros[indice_editar] = {titulo, autor, anio, genero}
@@ -23,7 +24,7 @@ const agregar_libro = () => {
                 indice_editar = null
                 document.querySelector('button[type="submit"]').innerText = 'Agregar Libro'
             }else{
-                libros.push({ titulo, autor, anio, genero })
+                libros.push({ titulo, autor, anio, genero, leido: false})
             }  
         }
         localStorage.setItem('libros', JSON.stringify(libros))
@@ -73,6 +74,9 @@ const renderizar_libros = (lista = libros) => {
                 <button onclick="editar_libro(${index_real})" class="boton_editar">Editar</button>
                 <button onclick="eliminar_libro(${index_real})" class="boton_eliminar">Eliminar</button>
             </td>
+            <td>
+                <input type="checkbox" id="leido_${index_real}" ${libro.leido ? 'checked' : ''} onchange="cambio_leido(${index_real})">
+            </td>
         `
 
         tabla.appendChild(fila)
@@ -108,17 +112,26 @@ const eliminar_libro = (index) => {
 const filtrar_libro = () =>{
     const titulo = document.getElementById('busqueda').value.toLowerCase()
     const genero = document.getElementById('filtro_genero').value
+    const estaMarcado = document.getElementById('leidos').checked // Toma directamente del elemento el estado checked (true/false)
 
+    // Chequea primero si esta marcada la opcion para mostrar solo los leidos y los filtra de ser verdadero
+    if (estaMarcado) {
+        lista_leidos = libros.filter(libro => libro.leido === true)
+        } else {
+            lista_leidos = libros
+        }
+
+    // Luego aplica el resto de los filtros a lista_leidos, que previamente aplico ese filtro
     if (titulo === '' && genero === 'todos'){
-        renderizar_libros()
+        renderizar_libros(lista_leidos)
     } else if (titulo != '' && genero === 'todos') {
-        const libro_filtrado = libros.filter(libro => libro.titulo.toLowerCase().includes(titulo))
+        const libro_filtrado = lista_leidos.filter(libro => libro.titulo.toLowerCase().includes(titulo))
         renderizar_libros(libro_filtrado)
     } else if (titulo === '' && genero != 'todos') {
-        const libro_filtrado = libros.filter(libro => libro.genero === genero)
+        const libro_filtrado = lista_leidos.filter(libro => libro.genero === genero)
         renderizar_libros(libro_filtrado)
     } else if (titulo != '' && genero != 'todos') {
-        const libro_filtrado_genero = libros.filter(libro => libro.genero === genero)
+        const libro_filtrado_genero = lista_leidos.filter(libro => libro.genero === genero)
         const libro_filtrado = libro_filtrado_genero.filter(libro => libro.titulo.toLowerCase().includes(titulo))
         renderizar_libros(libro_filtrado)
     }
@@ -135,6 +148,15 @@ const actualizarSelectGeneros = () => {
         option.text = normalizarPalabra(genero)
         select.appendChild(option)
     })
+}
+
+//cambia en el local a leido o no leido
+const cambio_leido = (index) => {
+    
+    libros[index].leido = !libros[index].leido
+
+    localStorage.setItem('libros', JSON.stringify(libros))
+
 }
 
 // Funcion para mostrar bien el texto de los generos en el front (ej. 'ciencia_ficcion' >>> 'Ciencia Ficcion')
