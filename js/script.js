@@ -112,17 +112,26 @@ const eliminar_libro = (index) => {
 const filtrar_libro = () =>{
     const titulo = document.getElementById('busqueda').value.toLowerCase()
     const genero = document.getElementById('filtro_genero').value
+    const estaMarcado = document.getElementById('leidos').checked // Toma directamente del elemento el estado checked (true/false)
 
+    // Chequea primero si esta marcada la opcion para mostrar solo los leidos y los filtra de ser verdadero
+    if (estaMarcado) {
+        lista_leidos = libros.filter(libro => libro.leido === true)
+        } else {
+            lista_leidos = libros
+        }
+
+    // Luego aplica el resto de los filtros a lista_leidos, que previamente aplico ese filtro
     if (titulo === '' && genero === 'todos'){
-        renderizar_libros()
+        renderizar_libros(lista_leidos)
     } else if (titulo != '' && genero === 'todos') {
-        const libro_filtrado = libros.filter(libro => libro.titulo.toLowerCase().includes(titulo))
+        const libro_filtrado = lista_leidos.filter(libro => libro.titulo.toLowerCase().includes(titulo))
         renderizar_libros(libro_filtrado)
     } else if (titulo === '' && genero != 'todos') {
-        const libro_filtrado = libros.filter(libro => libro.genero === genero)
+        const libro_filtrado = lista_leidos.filter(libro => libro.genero === genero)
         renderizar_libros(libro_filtrado)
     } else if (titulo != '' && genero != 'todos') {
-        const libro_filtrado_genero = libros.filter(libro => libro.genero === genero)
+        const libro_filtrado_genero = lista_leidos.filter(libro => libro.genero === genero)
         const libro_filtrado = libro_filtrado_genero.filter(libro => libro.titulo.toLowerCase().includes(titulo))
         renderizar_libros(libro_filtrado)
     }
@@ -146,27 +155,7 @@ const cambio_leido = (index) => {
     
     libros[index].leido = !libros[index].leido
 
-
     localStorage.setItem('libros', JSON.stringify(libros))
-
-    }
-
-//funcion para filtrar leidos
-const filtrar_leidos = () =>{
-    const checkboxLeidos = document.getElementById('leidos')
-    const estaMarcado = checkboxLeidos.checked
-
-     let lista_leidos = []
-
-      if (estaMarcado) {
-        
-            lista_leidos = libros.filter(libro => libro.leido === true)
-        } else {
-        
-            lista_leidos = libros
-    }
-
-    renderizar_libros(lista_leidos)
 
 }
 
