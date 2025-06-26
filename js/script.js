@@ -35,8 +35,7 @@ const agregar_libro = () => {
         document.getElementById('anio').value = ''
         document.getElementById('genero').value = ''
 
-        renderizar_libros()
-        actualizarSelectGeneros()
+        actualizarTodo()
     }
     
 }
@@ -70,11 +69,11 @@ const renderizar_libros = (lista = libros) => {
             <td>${normalizarPalabra(libro.genero)}</td>
             <td>${libro.autor}</td>
             <td>${libro.anio}</td>
-            <td>
+            <td class="acciones">
                 <button onclick="editar_libro(${index_real})" class="boton_editar">Editar</button>
                 <button onclick="eliminar_libro(${index_real})" class="boton_eliminar">Eliminar</button>
             </td>
-            <td>
+            <td class="leido">
                 <input type="checkbox" id="leido_${index_real}" ${libro.leido ? 'checked' : ''} onchange="cambio_leido(${index_real})">
             </td>
         `
@@ -103,9 +102,7 @@ const eliminar_libro = (index) => {
 
     localStorage.setItem('libros', JSON.stringify(libros))
 
-    renderizar_libros()    
-
-
+    actualizarTodo()
 }
 
 // Filtro de libros por titulo y genero
@@ -177,8 +174,46 @@ const formatearPalabra = (palabra) => {
         .toLowerCase
 }
 
-// Acciones realizadas al cargar el DOM
-document.addEventListener('DOMContentLoaded', () => {
+const resumenDatos = () => {
+    const resumen = document.getElementById('resumen_datos')
+    const anioPosterior = 2010
+
+    const total = libros.length
+
+    const sumarAnios = libros.reduce((acum, libro) => acum + parseInt(libro.anio), 0)
+    const promedioAnios = Math.round(sumarAnios / total)
+
+    const posterioresA = libros.filter(libro => libro.anio > anioPosterior).length
+
+    const libroMasAntiguo = libros.reduce((libroViejo, libro) => (libro.anio < libroViejo.anio ? libro : libroViejo), libros[0])
+
+    const libroMasNuevo = libros.reduce((libroNuevo, libro) => (libro.anio > libroNuevo.anio ? libro : libroNuevo), libros[0])
+
+    resumen.innerHTML = `
+    <div class="dato">
+    <strong>Total de libros:</strong><p>${total}</p>
+    </div>
+    <div class="dato">
+    <strong>Año promedio de publicación:</strong><p>${promedioAnios}</p>
+    </div>
+    <div class="dato">
+    <strong>Libros posteriores a ${anioPosterior}:</strong><p>${posterioresA}</p>
+    </div>
+    <div class="dato">
+    <strong>Libro más antiguo:</strong><p>"${libroMasAntiguo.titulo}", ${libroMasAntiguo.anio}</p>
+    </div>
+    <div class="dato">
+    <strong>Libro más nuevo:</strong><p>"${libroMasNuevo.titulo}", ${libroMasNuevo.anio}</p>
+    </div>`
+}
+
+const actualizarTodo = () => {
     renderizar_libros()
     actualizarSelectGeneros()
+    resumenDatos()
+}
+
+// Acciones realizadas al cargar el DOM
+document.addEventListener('DOMContentLoaded', () => {
+    actualizarTodo()
 })

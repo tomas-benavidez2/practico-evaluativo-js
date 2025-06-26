@@ -14,13 +14,14 @@
 <body>
 
     <header>
-        <h2> - Gestor de libros - </h2>
+        <h1> - Gestor de libros - </h1>
     </header>
 
     <main>
 
         <!-- CARGA DE LIBROS -->
         <section class="carga_libros">
+            <h2> Cargar libros</h2>
             <form onsubmit="agregar_libro(); return false">
                 <input type="text" id="titulo" placeholder="Titulo del libro" required>
                 <input type="text" id="autor" placeholder="Autor del libro" required>
@@ -42,49 +43,53 @@
                 <button id="button_form" type="submit">Agregar libro</button>
             </form>
         </section>
+        <hr>
+        <section class="mostrar_todo">
+            <article class="lista_libros">
+                <h2>Lista de libros</h2>
+                <!-- LISTA RENDERIZABLE DE LIBROS -->
+                <article class="filtros_lista">
+                    <h3>Filtros:</h3>
+                    <div>
+                        <p>Título:</p>
+                        <input type="text" id="busqueda" placeholder="Buscar titulo..." oninput="filtrar_libro()">
+                    </div>
+                    <div>
+                        <p>Género:</p>
+                        <select id="filtro_genero" onchange="filtrar_libro()">
+                                <option value="todos" selected>Todos</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p>Solo leídos:</p>
+                        <input type="checkbox" id="leidos" placeholder="Buscar leidos..." oninput="filtrar_libro()">
+                    </div>
+                </article>
+                <article class="lista">
+                    <table border="1" id="tabla_libros">
+                        <thead>
+                            <th>#</th>
+                            <th>Título</th>
+                            <th>Género</th>
+                            <th>Autor</th>
+                            <th>Año</th>
+                            <th>Acciones</th>
+                            <th>Leído</th>
+                        </thead>
+                        <tbody>
 
-        <!-- LISTA RENDERIZABLE DE LIBROS -->
-        <section class="lista_libros">
-            <h2>Lista de libros</h2>
-            <article class="filtros_lista">
-                <h4>Filtros:</h4>
-                <div>
-                    <p>Título:</p>
-                    <input type="text" id="busqueda" placeholder="Buscar titulo..." oninput="filtrar_libro()">
-                </div>
-                <div>
-                    <p>Género:</p>
-                    <select id="filtro_genero" onchange="filtrar_libro()">
-                            <option value="todos" selected>Todos</option>
-                    </select>
-                </div>
-                <div>
-                    <p>Solo leídos:</p>
-                    <input type="checkbox" id="leidos" placeholder="Buscar leidos..." oninput="filtrar_libro()">
-                </div>
+                        </tbody>
+                    </table>
+                </article>
             </article>
-            <article class="lista">
-                <table border="1" id="tabla_libros">
-                    <thead>
-                        <th>#</th>
-                        <th>Título</th>
-                        <th>Género</th>
-                        <th>Autor</th>
-                        <th>Año</th>
-                        <th>Acciones</th>
-                        <th>Leído</th>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
+            <!-- RESUMEN DE DATOS -->
+            <article class="resumen_datos">
+                <h2>Resumen de Datos</h2>
+                <article id="resumen_datos" class="datos">
+                    
+                </article>
             </article>
-        </section>
-
-        <!-- RESUMEN DE DATOS -->
-        <section class="resumen_datos">
-
-        </section>
+        </section>        
     </main>
     <footer>
         <p>Grupo: Benavidez, Tomás; Blengino, Giuliano</p>
