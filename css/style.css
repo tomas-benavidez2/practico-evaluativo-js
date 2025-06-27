@@ -11,13 +11,14 @@ html, body {
     font-family: 'Roboto', sans-serif;
 }
 
-th, td {
-    font-family: 'Roboto', sans-serif;
-}
-
 body {
     background-color: #f4f4f4;
     color: #333;
+}
+
+hr {
+    border: #333 1px solid;
+    width: 90%;
 }
 
 button {
@@ -56,7 +57,7 @@ input, select {
 }
 
 .carga_libros {
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
 }
 
@@ -76,9 +77,20 @@ section {
     align-items: flex-start;
 }
 
+.mostrar_todo {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 50px;
+    align-items: flex-start;
+    justify-content: center;
+}
+
 .lista_libros {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    width: 60%;
 }
 
 .filtros_lista { 
@@ -87,21 +99,43 @@ section {
     gap: 20px;
     justify-content: center;
     align-items: center;
-    margin-top: auto;
+    height: min-content;
 }
 
 .filtros_lista div {
-    display: inherit;
+    display: flex;
+    align-items: center;
     gap: 10px;
     
 }
 
 .lista {
     margin-top: 5%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.lista table {
+    width: 100%;
 }
 
 th, tr, td {
+    font-family: 'Roboto', sans-serif;
     padding: 00px 10px 0px 10px;
+}
+
+.acciones {
+    display: flex;
+    justify-content: center;
+}
+
+.leido {
+    text-align: center;
+}
+
+.leido input:hover {
+    cursor: pointer;
 }
 
 td button {
@@ -124,6 +158,28 @@ td button {
 .boton_eliminar:hover {
     background-color: #C62828;
     transition: 0.5s;
+}
+
+.resumen_datos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.datos {
+    display: flex;
+    flex-direction: column;
+}
+
+.datos div {
+    display: flex;
+    align-items: center;
+    margin: 0px;
+}
+
+.datos div p {
+    margin: 5px;
+    margin-left: 5px;
 }
 
 footer {
