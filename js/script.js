@@ -2,6 +2,7 @@ let libros = JSON.parse(localStorage.getItem('libros')) || []
 
 let editando = false;
 let indice_editar = null;
+let orden_ascendente = true
 
 // Funcion para carga de libros
 const agregar_libro = () => {
@@ -114,6 +115,7 @@ const filtrar_libro = () =>{
     // Chequea primero si esta marcada la opcion para mostrar solo los leidos y los filtra de ser verdadero
     if (estaMarcado) {
         lista_leidos = libros.filter(libro => libro.leido === true)
+        console.log(lista_leidos)
         } else {
             lista_leidos = libros
         }
@@ -155,6 +157,7 @@ const cambio_leido = (index) => {
 
     localStorage.setItem('libros', JSON.stringify(libros))
 
+    resumenDatos()
 }
 
 // Funcion para mostrar bien el texto de los generos en el front (ej. 'ciencia_ficcion' >>> 'Ciencia Ficcion')
@@ -164,15 +167,6 @@ const normalizarPalabra = (palabra) => {
         .split(' ')                     // Divide en palabras
         .map(palabra => palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase()) // Capitaliza cada palabra
         .join(' ');                     // Une la palabra con espacios
-}
-
-// Funcion para formatear el input del usuario si carga un nuevo genero (si lo implementamos)
-// ej. Terror Psicologico >>> terror_psicologico
-const formatearPalabra = (palabra) => {
-    return palabra
-        .trim()
-        .replace(/_/g, ' ')
-        .toLowerCase
 }
 
 //funcion para mostrar resumen de datos
@@ -191,9 +185,14 @@ const resumenDatos = () => {
 
     const libroMasNuevo = libros.reduce((libroNuevo, libro) => (libro.anio > libroNuevo.anio ? libro : libroNuevo), libros[0])
 
+    const cantLibrosLeidos = libros.filter(libro => libro.leido === true).length
+
     resumen.innerHTML = `
     <div class="dato">
     <strong>Total de libros:</strong><p>${total}</p>
+    </div>
+    <div class="dato">
+    <strong>Total de libros leídos:</strong><p>${cantLibrosLeidos}</p>
     </div>
     <div class="dato">
     <strong>Año promedio de publicación:</strong><p>${promedioAnios}</p>
@@ -209,22 +208,22 @@ const resumenDatos = () => {
     </div>`
 }
 
-//funcion para ordenar la lista por año de publicacion de forma ascendente 
-const ordenar_libros_ascendente = () => {
+// Funcion para ordenar por año (ascendente y descendente)
+const ordenar_por_anio = () => {
 
-    const libros_ordenados = [...libros].sort((a, b) => a.anio - b.anio)
-        
-    renderizar_libros(libros_ordenados)
+    const boton_ordenar = document.getElementById('btn_ordenar')
 
-}
-
-//funcion para ordenar la lista por año de publicacion de forma descendente 
-const ordenar_libros_descendente = () => {
-
-    const libros_ordenados = [...libros].sort((a, b) => b.anio - a.anio)
-        
-    renderizar_libros(libros_ordenados)
-
+    if (orden_ascendente) {
+        const libros_ordenados = [...libros].sort((a, b) => a.anio - b.anio)
+        renderizar_libros(libros_ordenados)
+        orden_ascendente = false
+        boton_ordenar.innerText = 'Ordenar por Año ▲'
+    } else {
+        const libros_ordenados = [...libros].sort((a, b) => b.anio - a.anio)
+        renderizar_libros(libros_ordenados)
+        orden_ascendente = true
+        boton_ordenar.innerText = 'Ordenar por Año ▼'
+    }
 }
 
 //funcion para volver la lista al orden original por su index
@@ -232,8 +231,6 @@ const orden_original = () => {
 
     renderizar_libros(libros)
 }
-
-
 
 const actualizarTodo = () => {
     renderizar_libros()
@@ -244,4 +241,5 @@ const actualizarTodo = () => {
 // Acciones realizadas al cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {
     actualizarTodo()
+    console.log(libros)
 })

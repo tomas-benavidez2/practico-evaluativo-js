@@ -64,6 +64,9 @@
                         <p>Solo leídos:</p>
                         <input type="checkbox" id="leidos" placeholder="Buscar leidos..." oninput="filtrar_libro()">
                     </div>
+                    <div class="linea_vert"></div>
+                    <button onclick="ordenar_por_anio()" id="btn_ordenar" class="boton_ordenar">Ordenar por Año ▼</button>
+                    <button onclick="orden_original()" class="boton_ordenar">Ordenar por #</button>
                 </article>
                 <article class="lista">
                     <table border="1" id="tabla_libros">
@@ -88,14 +91,6 @@
                 <article id="resumen_datos" class="datos">
                     
                 </article>
-                <br>
-                <br>
-                <button onclick="ordenar_libros_ascendente()">Ordenar por Año (Ascendente)</button>
-                <br>
-                <button onclick="ordenar_libros_descendente()">Ordenar por Año (Descendente)</button>
-                <br>
-                <button onclick="orden_original()">Volver al orden original</button>
-
             </article>
         </section>        
     </main>
