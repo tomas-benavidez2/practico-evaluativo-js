@@ -16,6 +16,12 @@ body {
     color: #333;
 }
 
+.linea_vert {
+    width: 2px;
+    background-color: #333;
+    height: 40px;
+}
+
 hr {
     border: #333 1px solid;
     width: 90%;
@@ -32,6 +38,7 @@ button {
 
 button:hover {
     background-color: #45a049;
+    transition: 0.5s;
 }
 
 header {
@@ -148,7 +155,6 @@ td button {
 
 .boton_editar:hover {
     background-color: #00ACC1;
-    transition: 0.5s;
 }
 
 .boton_eliminar {
@@ -157,7 +163,15 @@ td button {
 
 .boton_eliminar:hover {
     background-color: #C62828;
-    transition: 0.5s;
+}
+
+.boton_ordenar {
+    color: black;
+    background-color: #FFC107;
+}
+
+.boton_ordenar:hover {
+    background-color: #FFA000;
 }
 
 .resumen_datos {
