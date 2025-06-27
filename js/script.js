@@ -64,7 +64,7 @@ const renderizar_libros = (lista = libros) => {
         const fila = document.createElement('tr')
 
         fila.innerHTML = `
-            <td>${index_real}</td>
+            <td>${index_real + 1}</td>
             <td>${libro.titulo}</td>
             <td>${normalizarPalabra(libro.genero)}</td>
             <td>${libro.autor}</td>
@@ -134,6 +134,7 @@ const filtrar_libro = () =>{
     }
 }
 
+//funcion para actualizar el select de generos en los filtros
 const actualizarSelectGeneros = () => {
     const select = document.getElementById('filtro_genero')
     const generosUnicos = [...new Set(libros.map(libro => libro.genero))]
@@ -174,6 +175,7 @@ const formatearPalabra = (palabra) => {
         .toLowerCase
 }
 
+//funcion para mostrar resumen de datos
 const resumenDatos = () => {
     const resumen = document.getElementById('resumen_datos')
     const anioPosterior = 2010
@@ -206,6 +208,32 @@ const resumenDatos = () => {
     <strong>Libro más nuevo:</strong><p>"${libroMasNuevo.titulo}", ${libroMasNuevo.anio}</p>
     </div>`
 }
+
+//funcion para ordenar la lista por año de publicacion de forma ascendente 
+const ordenar_libros_ascendente = () => {
+
+    const libros_ordenados = [...libros].sort((a, b) => a.anio - b.anio)
+        
+    renderizar_libros(libros_ordenados)
+
+}
+
+//funcion para ordenar la lista por año de publicacion de forma descendente 
+const ordenar_libros_descendente = () => {
+
+    const libros_ordenados = [...libros].sort((a, b) => b.anio - a.anio)
+        
+    renderizar_libros(libros_ordenados)
+
+}
+
+//funcion para volver la lista al orden original por su index
+const orden_original = () => {
+
+    renderizar_libros(libros)
+}
+
+
 
 const actualizarTodo = () => {
     renderizar_libros()
