@@ -18,4 +18,11 @@ jobs:
           # GitHub buscará este secreto para autenticarse vía SSH
           # El secreto debe contener la clave privada ya configurada
           # El servidor debe tener la clave pública en ~/.ssh/authorized_keys
-          SSH_PRIVATE_KEY: ${{ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN+OcA2Y+hDUH2/vQ2NN1NcAiam0s4ZF8bfvI3eGmeGc t.benavidez@itecriocuarto.org.ar }}
+          SSH_PRIVATE_KEY: ${{-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+QyNTUxOQAAACAt5L07WheN13rcDzls1ecMpQBP/xMGWojvCPIzkTVpTwAAAKiQzdAZkM3Q
+GQAAAAtzc2gtZWQyNTUxOQAAACAt5L07WheN13rcDzls1ecMpQBP/xMGWojvCPIzkTVpTw
+AAAEDl05wa/c9hcQ3PN8GmeVyR9W2FZ1MnL1J9T1enqolNuy3kvTtaF43XetwPOWzV5wyl
+AE//EwZaiO8I8jORNWlPAAAAIHQuYmVuYXZpZGV6QGl0ZWNyaW9jdWFydG8ub3JnLmFyAQ
+IDBAU=
+-----END OPENSSH PRIVATE KEY-----  }}
