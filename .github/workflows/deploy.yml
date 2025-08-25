@@ -8,18 +8,14 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup SSH key
-        run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H 137.184.127.11 >> ~/.ssh/known_hosts
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      
       - name: Conectarse al servidor y hacer git pull
         run: |
           ssh -o StrictHostKeyChecking=no alumno@137.184.127.11 "
-            cd ~/lemp-sites/tomas_benavidez/practico-evaluativo-js &&
+            cd ~/lemp-sites/tomas_benavidez/practivo-evaluativo-js &&
             git pull origin main
           "
+        env:
+          # GitHub buscará este secreto para autenticarse vía SSH
+          # El secreto debe contener la clave privada ya configurada
+          # El servidor debe tener la clave pública en ~/.ssh/authorized_keys
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
