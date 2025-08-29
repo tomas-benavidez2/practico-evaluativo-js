@@ -1,4 +1,4 @@
-[200~name: CI - Pruebas JS
+name: CI - Pruebas JS
 
 on:
   push:

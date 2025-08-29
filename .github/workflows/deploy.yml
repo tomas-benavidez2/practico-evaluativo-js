@@ -2,20 +2,27 @@ name: CD - Deploy con Git Pull
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   deploy:
+    name: Deploy to Server
     runs-on: ubuntu-latest
+
     steps:
-      - name: Conectarse al servidor y hacer git pull
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+
+      - name: Run Deploy Script
         run: |
-          ssh -o StrictHostKeyChecking=no alumno@137.184.127.11 "
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}               
+          "
             cd ~/lemp-sites/tomas_benavidez/practico-evaluativo-js &&
             git pull origin main
           "
-        env:
-          # GitHub buscará este secreto para autenticarse vía SSH
-          # El secreto debe contener la clave privada ya configurada
-          # El servidor debe tener la clave pública en ~/.ssh/authorized_keys
-          SSH_PRIVATE_KEY: ${{ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN+OcA2Y+hDUH2/vQ2NN1NcAiam0s4ZF8bfvI3eGmeGc t.benavidez@itecriocuarto.org.ar }}
